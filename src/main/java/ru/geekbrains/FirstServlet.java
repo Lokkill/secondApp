@@ -19,7 +19,21 @@ public class FirstServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        logger.info("New Get request");
+        resp.getWriter().printf("<html>");
+        resp.getWriter().printf("<body>");
+        resp.getWriter().printf("<h1>Product's table</h1>");
+        resp.getWriter().printf("<table class='tab'>\n" +
+                "    <tr>\n" +
+                "        <th>Id</th>\n" +
+                "        <th>Title</th>\n" +
+                "        <th>Cost</th>\n" +
+                "    </tr>\n");
+        for (int i = 0; i < 10; i++) {
+            Product pr = new Product((long) i, "Product " + i, (float) (Math.random() * 100) + 10);
+            resp.getWriter().printf("<tr><td>%d</td><td>%s</td><td>%.2f</td></tr>", pr.getId(), pr.getTitle(), pr.getCost());
+        }
+        resp.getWriter().printf("</table></html></body>");
     }
 
     @Override
